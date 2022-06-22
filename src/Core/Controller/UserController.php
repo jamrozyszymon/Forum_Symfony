@@ -5,14 +5,25 @@ namespace App\Core\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 
 class UserController extends AbstractController
 {
     /**
-     *  @Route ("/testhome")
+     *  @Route ("/usercreate")
      */
-    public function index()
+    public function createUser(UserPasswordHasherInterface $userPasswordHasherInterface, EntityManagerInterface $entityManagerInterface)
     {
-        return $this->render('Home/home.twig');
+        $user = new User();
+        $user->setEmail('test@test.com');   
+        $hashedPassword = $userPasswordHasherInterface->hashPassword($user, 'Test123');
+        $user->setPassword($hashedPassword);
+        $entityManagerInterface->persist($user);
+        $entityManagerInterface->flush();
+        die();
+        
+
     }
 }

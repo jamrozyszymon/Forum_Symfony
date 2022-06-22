@@ -1,5 +1,27 @@
 @import '~bootstrap/scss/bootstrap';
 
 body{
-    background-color: lightgray;
+    background-color: rgb(221, 221, 226);
+    margin-right: auto;
+}
+
+.header{
+    background-color: rgb(192, 190, 218);
+    padding-top: 15px;
+    padding-left: 20px;
+	margin-bottom: 20px;
+	border-bottom-style: solid;
+}
+
+.contentmain {
+    padding-left: 40px;
+}
+
+.px-4.py-3 {
+    margin: auto;
+    width: 500px;
+}
+
+.btn.btn-secondary {
+    margin-top: 20px;
 }
