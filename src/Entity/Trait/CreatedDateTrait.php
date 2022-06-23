@@ -5,10 +5,12 @@ namespace App\Entity\Trait;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
+/**
+ * Return date of creation
+ */
 trait CreatedDateTrait
 {
     /**
-     * 
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
@@ -22,6 +24,9 @@ trait CreatedDateTrait
         $this->created = new DateTime("now");
     }
 
+    /**
+     * @return DateTime $created
+     */
     public function getCreatedDate(): DateTime
     {
         return $this->created;

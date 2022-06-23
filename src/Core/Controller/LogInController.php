@@ -25,8 +25,14 @@ class LogInController extends AbstractController
     /**
      * @Route("/logout", name="logout")
      */
+    public function logout(): void
+    {
+    }
+    /*
     public function logout()
     {
         return $this->render('User/logout.twig');
     }
+    */
+
 }
