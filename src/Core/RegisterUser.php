@@ -6,7 +6,7 @@ use App\Core\CreateUser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Core\ValueObject\UserValueObject;
-use App\Core\ValidUserData;
+use App\Core\ValidUserPassword;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
@@ -14,19 +14,21 @@ class RegisterUser
 {
     /** @var $createUser */
 
-    /** @var ValidUserData */
-    private $validUserData;
+    /** @var ValidUserPassword */
+    private $validUserPassword;
 
     public function __construct(EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $userPasswordHasherInterface)
     {
-        $this->createUser= new CreateUser($entityManagerInterface, $userPasswordHasherInterface);
-        $this->validUserData= new ValidUserData;
+        $this->createUser = new CreateUser($entityManagerInterface, $userPasswordHasherInterface);
+        $this->validUserPassword = new ValidUserPassword;
     }
 
     public function registerFromRequest(Request $request): void
     {
-        $this->validUserData->valid($request);
+        $this->validUserPassword->validPasswords($request);
+        $this->validUserPassword->validLengthPassword($request);
         $userValueObject = new UserValueObject;
+        $userValueObject->name = $request->get('name');
         $userValueObject->email = $request->get('email');
         $userValueObject->password = $request->get('password');
         $this->createUser->create($userValueObject);

@@ -12,12 +12,13 @@ use Doctrine\ORM\EntityManagerInterface;
 class UserController extends AbstractController
 {
     /**
-     *  @Route ("/usercreate")
+     *  @Route ("/user/create")
      */
     public function createUser(UserPasswordHasherInterface $userPasswordHasherInterface, EntityManagerInterface $entityManagerInterface)
     {
         $user = new User();
-        $user->setEmail('test@test.com');   
+        $user->setname('testt');
+        $user->setEmail('test@test2.com');   
         $hashedPassword = $userPasswordHasherInterface->hashPassword($user, 'Test123');
         $user->setPassword($hashedPassword);
         $entityManagerInterface->persist($user);

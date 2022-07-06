@@ -24,6 +24,7 @@ class CreateUser
     public function create(UserValueObject $userValueObject): void
     {
         $user = new User();
+        $user->setName($userValueObject->name);
         $user->setEmail($userValueObject->email);
         $passwordHashed = $this->userPasswordHasherInterface->hashPassword($user, $userValueObject->password);
         $user->setRoles($userValueObject->roles ?? []);

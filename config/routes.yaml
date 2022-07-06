@@ -2,7 +2,6 @@ controllers:
     resource: ../src/Core/Controller/
     type: annotation
 
-#dodany
 kernel:
     resource: ../src/Kernel.php
     type: annotation

@@ -14,12 +14,14 @@ class HomeController extends AbstractController
      */
     public function index()
     {
+        $user = new User();
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user=$this->getUser();
 
         $emailGet = $user->getEmail();
 
         return $this->render('Home/home.twig', ['emailGet'=>$emailGet]);
+
     }
 
     /**

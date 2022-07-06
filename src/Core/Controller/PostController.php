@@ -5,10 +5,8 @@ namespace App\Core\Controller;
 use App\Core\CreatePost;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Post;
-use App\Entity\PostLike;
 use DateTime;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,13 +27,13 @@ class PostController extends AbstractController
             }
         }
         $createPost->create('test CreatePost');
-        $postRepository=$entityManagerInterface->getRepository(Post::class);
+        $postRepository = $entityManagerInterface->getRepository(Post::class);
         $startDate = DateTime::createFromFormat('Y-m-d H:i:s', "2022-01-01 00:00:00");
         $endDate = DateTime::createFromFormat('Y-m-d H:i:s', "2022-01-01 00:00:00");
         $posts=$postRepository->getByDates($startDate, $endDate);
         $html ='';
         foreach($posts as $post) {
-            $html .=count($post->getPostLike()). '.'. $post->getContent(). '</br>';
+            $html.= count($post->getPostLike()). '.'. $post->getContent(). '</br>';
         }
         return $this->render('Post/posts.twig.html', ['html'=>$html]);
     }

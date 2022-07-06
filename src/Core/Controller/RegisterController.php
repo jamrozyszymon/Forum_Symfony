@@ -12,7 +12,7 @@ use App\Core\RegisterUser;
 class RegisterController extends AbstractController
 {
     /**
-    *  @Route("/signup", name="signup")
+    *  @Route("/user/signup", name="signup")
     */
     public function signUp(Request $request, RegisterUser $registerUser)
     {

@@ -16,7 +16,6 @@ trait CreatedDateTrait
     private $created;
 
     /**
-     * Function for create date of post's creation
      * @ORM\PrePersist
      */
     public function onPrePersist()
