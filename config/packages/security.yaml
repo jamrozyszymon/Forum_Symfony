@@ -21,6 +21,11 @@ security:
                 check_path: login
                 default_target_path: home
 
+            remember_me:
+                secret:   '%kernel.secret%' # required
+                lifetime: 604800 # 1 week in seconds
+
+
             logout:
                 path: logout
                 target: /user/login

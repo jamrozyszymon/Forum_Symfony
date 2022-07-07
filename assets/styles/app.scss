@@ -1,5 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 
+
+
 body{
     background-color: rgb(221, 221, 226);
     margin-right: auto;
@@ -14,12 +16,8 @@ body{
 }
 
 .contentmain {
-    padding-left: 40px;
-}
-
-.px-4.py-3 {
-    margin: auto;
     width: 500px;
+    margin: auto;
 }
 
 .btn.btn-secondary {

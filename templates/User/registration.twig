@@ -1,5 +1,6 @@
 {% extends "base.html.twig" %}
  {% block body %}
+ <h2>Rejestracja</h2>
         <div class= "row">
             <div class = "col-6">
                 <div>
@@ -27,5 +28,9 @@
                 </div>
             </form>
             </div>
+        </div>
+        <div>
+            <h3>Masz konto?</h3>
+            <a href= "{{path('login')}}">Logowanie</a>
         </div>
  {% endblock %}
