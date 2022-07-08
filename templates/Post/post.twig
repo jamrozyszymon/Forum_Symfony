@@ -7,12 +7,10 @@
                     {% include 'displayerror.twig' %}
                 </div>
             <form method="post">
-                <input type="text" name="content"/>
-                <input type="submit" name="Zapisz"/>
+                <label for="exampleFormControlTextarea1" class="form-label">Treść postu</label>
+                <textarea class="form-control" name="content" rows="3"></textarea>
+                <button type="submit" class="btn btn-secondary">Dodaj</button>
             </form>
-            </div>
-            <div class = "col-6">
-            right
             </div>
         </div>
     </div>

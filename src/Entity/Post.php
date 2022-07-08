@@ -27,6 +27,11 @@ class Post
      */
     private $postLike;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
+     */
+    private $users;
+
 
     public function getPostLike()
     {
@@ -41,5 +46,17 @@ class Post
     public function getContent():string
     {
         return $this->content;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): self
+    {
+        $this->users = $users;
+
+        return $this;
     }
 }

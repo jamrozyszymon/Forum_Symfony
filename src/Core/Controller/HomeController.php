@@ -17,9 +17,7 @@ class HomeController extends AbstractController
         $user = new User();
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user=$this->getUser();
-
         $emailGet = $user->getEmail();
-
         return $this->render('Home/home.twig', ['emailGet'=>$emailGet]);
 
     }

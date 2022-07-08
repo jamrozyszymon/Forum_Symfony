@@ -6,10 +6,9 @@ use App\Core\CreatePost;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Post;
-use DateTime;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
+use App\Entity\User;
 
 class PostController extends AbstractController
 {
@@ -18,24 +17,18 @@ class PostController extends AbstractController
      */
     public function create(CreatePost $createPost, Request $request, EntityManagerInterface $entityManagerInterface)
     {
+        $user = new User();
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user=$this->getUser();
         if($request->isMethod('POST')) {
             try{
-                $createPost->create($request->get('content'));
-                $this->addFlash('success', "Post został dodany prawidłowo");
+                $createPost->create($request->get('content'), $user);
+                $this->addFlash('success', "Post został dodany");
             } catch (Exception $ex) {
                 $this->addFlash('danger', $ex->getMessage());
             }
         }
-        $createPost->create('test CreatePost');
-        $postRepository = $entityManagerInterface->getRepository(Post::class);
-        $startDate = DateTime::createFromFormat('Y-m-d H:i:s', "2022-01-01 00:00:00");
-        $endDate = DateTime::createFromFormat('Y-m-d H:i:s', "2022-01-01 00:00:00");
-        $posts=$postRepository->getByDates($startDate, $endDate);
-        $html ='';
-        foreach($posts as $post) {
-            $html.= count($post->getPostLike()). '.'. $post->getContent(). '</br>';
-        }
-        return $this->render('Post/posts.twig.html', ['html'=>$html]);
+        return $this->render('Post/post.twig');
     }
     
 }
