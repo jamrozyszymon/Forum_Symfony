@@ -9,11 +9,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
+use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Post;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 class PostController extends AbstractController
 {
     /**
-     *  @Route ("/post", name="post")
+     *  @Route("/Post/create", name="post_create")
      */
     public function create(CreatePost $createPost, Request $request, EntityManagerInterface $entityManagerInterface)
     {
@@ -28,7 +33,28 @@ class PostController extends AbstractController
                 $this->addFlash('danger', $ex->getMessage());
             }
         }
-        return $this->render('Post/post.twig');
+        return $this->render('Post/create.twig');
     }
-    
+
+    /**
+     * @Route("/Post/show", name="post_show")
+     */
+    public function showPost(ManagerRegistry $doctrine,  PaginatorInterface $paginator, Request $request)
+    {
+        $posts = $doctrine->getRepository(Post::class)->findAll();
+        
+        $paginate = $paginator->paginate(
+            $posts,
+            $request->query->getInt('page', 1), 5
+        );
+
+        if (!$posts) {
+            throw $this->createNotFoundException(
+                'Brak postów do wyświelenia.'
+            );
+        }
+        return $this->render('Post/show.twig', [
+            'paginations' => $paginate
+        ]);
+    }
 }
