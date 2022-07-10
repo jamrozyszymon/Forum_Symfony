@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Core\RegisterUser;
+use App\Core\Services\RegisterUser;
 
 
 class RegisterController extends AbstractController

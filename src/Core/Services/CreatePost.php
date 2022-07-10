@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Core;
+namespace App\Core\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Post;
-use App\Core\ValidPostData;
+use App\Core\Services\ValidPostData;
 use App\Entity\User;
 
 class CreatePost

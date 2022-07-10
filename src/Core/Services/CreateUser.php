@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace App\Core\Services;
 
 use App\Core\ValueObject\UserValueObject;
 use Doctrine\ORM\EntityManagerInterface;

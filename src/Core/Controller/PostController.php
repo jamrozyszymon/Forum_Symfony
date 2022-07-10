@@ -2,7 +2,7 @@
 
 namespace App\Core\Controller;
 
-use App\Core\CreatePost;
+use App\Core\Services\CreatePost;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Post;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
 
 

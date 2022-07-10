@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Core;
+namespace App\Core\Services;
 
-use App\Core\CreateUser;
+use App\Core\Services\CreateUser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Core\ValueObject\UserValueObject;
-use App\Core\ValidUserPassword;
+use App\Core\Services\ValidUserPassword;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
