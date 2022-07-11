@@ -12,13 +12,14 @@ use App\Core\Services\RegisterUser;
 class RegisterController extends AbstractController
 {
     /**
-    *  @Route("/user/signup", name="signup")
+    *  @Route("/user/register", name="register")
     */
-    public function signUp(Request $request, RegisterUser $registerUser)
+    public function register(Request $request, RegisterUser $registerUser)
     {
         if($request->isMethod('Post')) {
             try {
                 $registerUser->registerFromRequest($request);
+                return $this->render('User/registration.twig');
                 $this->addFlash('success', 'Udana rejestracja');
             } catch (Exception $e) {
                 $this->addFlash('danger', $e->getMessage());

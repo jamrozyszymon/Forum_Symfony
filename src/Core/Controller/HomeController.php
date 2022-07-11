@@ -14,23 +14,8 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        $user = new User();
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $user=$this->getUser();
-        $emailGet = $user->getEmail();
-        return $this->render('Home/home.twig', ['emailGet'=>$emailGet]);
+        return $this->render('Home/home.twig');
 
     }
 
-    /**
-     *  @Route ("/admin", name="admin")
-     */
-    public function adminUsers()
-    {
-        $user=$this->getUser();
-
-        $emailGet = $user->getEmail();
-
-        return $this->render('Home/home.twig', ['emailGet'=>$emailGet]);
-    }
 }

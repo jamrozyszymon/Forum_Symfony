@@ -22,6 +22,7 @@
         "symfony/proxy-manager-bridge": "6.1.*",
         "symfony/runtime": "*",
         "symfony/security-bundle": "6.1.*",
+        "symfony/security-csrf": "6.1.*",
         "symfony/twig-bundle": "6.1.*",
         "symfony/validator": "6.1.*",
         "symfony/webpack-encore-bundle": "^1.15",
@@ -83,6 +84,7 @@
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^7.1",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.1.*",
         "symfony/css-selector": "6.1.*",

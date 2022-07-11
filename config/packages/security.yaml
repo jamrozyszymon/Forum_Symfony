@@ -19,16 +19,18 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                default_target_path: home
+                default_target_path: dashboard
+                enable_csrf: true
 
             remember_me:
                 secret:   '%kernel.secret%' # required
                 lifetime: 604800 # 1 week in seconds
+                path: / #required on every website
 
 
             logout:
                 path: logout
-                target: /user/login
+                target: /home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

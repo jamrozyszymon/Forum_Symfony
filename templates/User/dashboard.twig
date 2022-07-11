@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+ {% block body %}
+    <div class="container">
+        <h2>Panel Użytkownika</h2>
+        <div class= "row">
+            <div class = "col-6">
+            Dashboard
+            Jesteś zalogowany jako: </br>
+            {{emailGet}}
+            </br>
+            </div>
+        </div>
+        <div>
+            <a href= "{{path('logout')}}">Wyloguj</a>
+        </div>
+    </div>
+    
+    <div>
+        <h3>Dodaj post</h3>
+        <a href= "{{path('post_create')}}">Dodaj post</a>
+    </div>
+ {% endblock %}
