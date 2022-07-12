@@ -23,7 +23,7 @@ class DashboardController extends AbstractController
     }
 
     /**
-     *  @Route ("/admin", name="admin")
+     *  @Route ("/user/admin_dashboard", name="admin_dashboard")
      */
     public function adminUsers()
     {

@@ -10,20 +10,18 @@
             <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col"></th>
                     <th scope="col">Treść</th>
+                    <th scope="col">Usuń</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
                  {% for pagination in paginations %}
                 <tr>
-                <th scope="row">1</th>
+                <th scope="row"></th>
                     <td>{{ pagination.content }}</td>
                     <td> 
-                    {#
-                        <a href="{{path('edit',{'blog':post.id})}}" class="btn btn-default btn-sm"> Edytuj </a>
-                    #}
-
+                        <a onclick="return confirm('Czy na pewno usunąć post?')" href ="{{ path('post_delete',{'id':pagination.id})}}"><span class="close">X</span></a>
                     </td>
                 </tr>
                 {% endfor %}

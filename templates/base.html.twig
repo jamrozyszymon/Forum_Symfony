@@ -2,12 +2,15 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Forum{% endblock %}</title>
+        <title>
+            {% block title %}Forum{% endblock %}
+        </title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
+    
     <body>
         {% block header %}
             <div class = header>
@@ -15,10 +18,28 @@
             </div>
         {% endblock %}
 
-         <div class = contentmain>
-        {% block body %}
-        {% endblock %}
+        <div class ="main">
+        
+            <div class ="nav">
+                {% block nav %}
+                    <nav>
+                        {{ render(controller("App\\Core\\Controller\\PostController::categories")) }}
+                    </nav>
+                {% endblock %}
+            </div>
+
+            <div class = "contentmain">
+                {% block body %}
+
+                {% endblock %}
+            </div>
         </div>
+
+        {% block footer %}
+            <div class = footer>
+                <p>Copyright &copy</p>
+            </div>
+        {% endblock %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}

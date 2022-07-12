@@ -12,6 +12,7 @@ use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Post;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Entity\Category;
 
 
 class PostController extends AbstractController
@@ -19,7 +20,7 @@ class PostController extends AbstractController
     /**
      *  @Route("/Post/create", name="post_create")
      */
-    public function create(CreatePost $createPost, Request $request, EntityManagerInterface $entityManagerInterface)
+    public function create(CreatePost $createPost, Request $request)
     {
         $user = new User();
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -36,11 +37,11 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/Post/show", name="post_show")
+     * @Route("/Post/show/category/{categoryname},{id}", name="post_show")
      */
-    public function showPost(ManagerRegistry $doctrine,  PaginatorInterface $paginator, Request $request)
+    public function showPost(ManagerRegistry $doctrine,  PaginatorInterface $paginator, Request $request, Category $id)
     {
-        $posts = $doctrine->getRepository(Post::class)->findAll();
+        $posts = $doctrine->getRepository(Post::class)->findBy(['id' => $id]);
         
         $paginate = $paginator->paginate(
             $posts,
@@ -54,6 +55,26 @@ class PostController extends AbstractController
         }
         return $this->render('Post/show.twig', [
             'paginations' => $paginate
+        ]);
+    }
+
+    /**
+     * @Route("/Post/delete/{id}", name= "post_delete")
+     */
+    public function deletePost(ManagerRegistry $doctrine, Post $id)
+    {
+        $entityManagerInterface = $doctrine->getManager();
+        $entityManagerInterface->remove($id);
+        $entityManagerInterface->flush();
+        return $this->redirectToRoute('post_show');
+    }
+
+    public function categories(ManagerRegistry $doctrine)
+    {
+        $categories = $doctrine->getRepository(Category::class)->findAll();
+
+        return $this->render('Post/category.html.twig', [
+            'categories' => $categories
         ]);
     }
 }
