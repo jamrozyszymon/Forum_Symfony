@@ -12,34 +12,27 @@
     </head>
     
     <body>
-        {% block header %}
-            <div class = header>
-                <h1>Forum</h1>
-            </div>
-        {% endblock %}
+        <header>
+            {% include 'header.html.twig' %}
+        </header>
 
-        <div class ="main">
-        
-            <div class ="nav">
+        <main>
+           <nav>
                 {% block nav %}
-                    <nav>
                         {{ render(controller("App\\Core\\Controller\\PostController::categories")) }}
-                    </nav>
                 {% endblock %}
-            </div>
+            </nav>
 
-            <div class = "contentmain">
+            <article>
                 {% block body %}
 
                 {% endblock %}
-            </div>
-        </div>
+            </article> 
+        </main>
 
-        {% block footer %}
-            <div class = footer>
-                <p>Copyright &copy</p>
-            </div>
-        {% endblock %}
+        <footer>
+            {% include 'footer.html.twig' %}
+        </footer>
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}

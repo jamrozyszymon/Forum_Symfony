@@ -18,7 +18,7 @@ class DashboardController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user=$this->getUser();
         $emailGet = $user->getEmail();
-        return $this->render('User/dashboard.twig', ['emailGet'=>$emailGet]);
+        return $this->render('User/dashboard.html.twig', ['emailGet'=>$emailGet]);
 
     }
 
@@ -31,6 +31,6 @@ class DashboardController extends AbstractController
 
         $emailGet = $user->getEmail();
 
-        return $this->render('User/dashboard.twig', ['emailGet'=>$emailGet]);
+        return $this->render('User/dashboard.html.twig', ['emailGet'=>$emailGet]);
     }
 }

@@ -33,11 +33,11 @@ class PostController extends AbstractController
                 $this->addFlash('danger', $ex->getMessage());
             }
         }
-        return $this->render('Post/create.twig');
+        return $this->render('Post/create.html.twig');
     }
 
     /**
-     * @Route("/Post/show/category/{categoryname},{id}", name="post_show")
+     * @Route("/Post/display/category/{categoryname},{id}", name="post_display")
      */
     public function showPost(ManagerRegistry $doctrine,  PaginatorInterface $paginator, Request $request, Category $id)
     {
@@ -53,7 +53,7 @@ class PostController extends AbstractController
                 'Brak postów do wyświelenia.'
             );
         }
-        return $this->render('Post/show.twig', [
+        return $this->render('Post/display.html.twig', [
             'paginations' => $paginate
         ]);
     }
@@ -66,7 +66,7 @@ class PostController extends AbstractController
         $entityManagerInterface = $doctrine->getManager();
         $entityManagerInterface->remove($id);
         $entityManagerInterface->flush();
-        return $this->redirectToRoute('post_show');
+        return $this->redirectToRoute('post_display');
     }
 
     public function categories(ManagerRegistry $doctrine)

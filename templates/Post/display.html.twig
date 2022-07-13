@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+ {% block body %}
+    <div class="container">
+        <div class= "row">
+            <div class = "col-6">
+                <div>
+                    {% include 'displayerror.html.twig' %}
+                </div>
+                
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Treść</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <th scope="col">Usuń</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for pagination in paginations %}
+                    <tr>
+                    <th scope="row"></th>
+                        <td>
+                            {{ pagination.content }}
+                        </td>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <td> 
+                            <a onclick="return confirm('Czy na pewno usunąć post?')" href ="{{ path('post_delete',{'id':pagination.id})}}"><span class="close">X</span></a>
+                        </td>
+                        {% endif %}
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(paginations)}}
+    </div>
+
+ {% endblock %}
