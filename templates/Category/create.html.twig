@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+ {% block body %}
+    <div class="container">
+        <div class= "row">
+            <div class = "col-6">
+                <div>
+                    {% include 'displayerror.html.twig' %}
+                </div>
+
+            {{ form_start(form) }}
+                <label for="name">Nazwa</label>
+                {{ form_widget(form.name)}}
+                <div class="invalid-feedback">
+                    Wprowadź nazwę kategorii
+                    {{form_errors (form.name) }}
+                </div>
+                <button type="submit" class="btn btn-secondary">Dodaj</button>
+            {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+ {% endblock %}

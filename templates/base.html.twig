@@ -13,13 +13,15 @@
     
     <body>
         <header>
-            {% include 'header.html.twig' %}
+            {% block header %}
+                {% include 'header.html.twig' %}
+            {% endblock %}
         </header>
 
         <main>
            <nav>
                 {% block nav %}
-                        {{ render(controller("App\\Core\\Controller\\PostController::categories")) }}
+                        {{ render(controller("App\\Core\\Controller\\CategoryController::displayCategories")) }}
                 {% endblock %}
             </nav>
 

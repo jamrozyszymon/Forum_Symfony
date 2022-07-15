@@ -5,7 +5,6 @@ namespace App\Core\Controller;
 use App\Core\Services\CreatePost;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
@@ -73,7 +72,7 @@ class PostController extends AbstractController
     {
         $categories = $doctrine->getRepository(Category::class)->findAll();
 
-        return $this->render('Post/category.html.twig', [
+        return $this->render('Category/category_tree.html.twig', [
             'categories' => $categories
         ]);
     }
