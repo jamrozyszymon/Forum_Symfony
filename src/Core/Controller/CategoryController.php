@@ -44,15 +44,4 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/Category/delete/{id}", name= "category_delete")
-     */
-    public function deleteCategory(ManagerRegistry $doctrine, Category $id)
-    {
-        $entityManagerInterface = $doctrine->getManager();
-        $entityManagerInterface->remove($id);
-        $entityManagerInterface->flush();
-        return $this->redirectToRoute('category_display');
-    }
-
 }

@@ -10,6 +10,7 @@ use App\Form\CategoryType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Category;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/admin")
@@ -48,11 +49,44 @@ class AdminController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/users", name="admin_users")
+     * @Route("/category/delete/{id}", name= "admin_category_delete")
      */
-    public function getUsers(): Response
+    public function deleteCategory(ManagerRegistry $doctrine, Category $id)
     {
-        return $this->render('admin/users.html.twig');
+        $entityManagerInterface = $doctrine->getManager();
+        $entityManagerInterface->remove($id);
+        $entityManagerInterface->flush();
+        return $this->redirectToRoute('category_display');
+    }
+
+
+    /**
+     * @Route("/users", name="admin_user_display")
+     */
+    public function getUsers(ManagerRegistry $doctrine, PaginatorInterface $paginator, Request $request): Response
+    {
+        $users = $doctrine->getRepository(User::class)->findAll();
+
+        $paginate = $paginator->paginate(
+            $users,
+            $request->query->getInt('page', 1), 10
+        );
+
+        return $this->render('admin/user_display.html.twig', [
+            'paginations' => $paginate
+        ]);
+    }
+
+    /**
+     * @Route("/users/delete{id}", name="admin_user_delete")
+     */
+    public function deleteUser(ManagerRegistry $doctrine, User $id)
+    {
+        $entityManagerInterface = $doctrine->getManager();
+        $entityManagerInterface->remove($id);
+        $entityManagerInterface->flush();
+        return $this->redirectToRoute('admin_user_display');
     }
 }

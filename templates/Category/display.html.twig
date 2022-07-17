@@ -24,13 +24,18 @@
                     {% for pagination in paginations %}
                     <tr>
                     <th scope="row"></th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            {{ pagination.id }}
+                        </td>
+                        {% endif %}
                         <td>
                             {{ pagination.name }}
                         </td>
 
                         {% if is_granted('ROLE_ADMIN') %}
                         <td> 
-                            <a onclick="return confirm('Czy na pewno usunąć categorię?')" href ="{{ path('category_delete',{'id':pagination.id})}}"><span class="close">X</span></a>
+                            <a onclick="return confirm('Czy na pewno usunąć categorię?')" href ="{{ path('admin_category_delete',{'id':pagination.id})}}"><span class="close">X</span></a>
                         </td>
                         {% endif %}
                         

@@ -11,7 +11,7 @@
                 <a class="nav-link" href={{path('admin_category_create')}}>Stwórz kategorie</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href={{path('admin_users')}}>Użytkownicy</a>
+                <a class="nav-link" href={{path('admin_user_display')}}>Użytkownicy</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href={{path('admin_dashboard')}}>Admin Panel</a>
@@ -25,7 +25,7 @@
 
 
 {% block nav %}
-    {{ render(controller("App\\Core\\Controller\\CategoryController::getCategories")) }}
+    {{ render(controller("App\\Core\\Controller\\CategoryController::displayCategories")) }}
 {% endblock %}
 
 {% block body %}

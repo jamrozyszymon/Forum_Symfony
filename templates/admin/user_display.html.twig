@@ -4,7 +4,7 @@
         <div class= "row">
             <div class = "col-6">
 
-                <h1> Kategoria Nazwa {# TODO #} </h1>
+                <h1> Lista użytkowników </h1>
 
                 <div>
                     {% include 'displayerror.html.twig' %}
@@ -13,11 +13,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Treść</th>
-                        {% if is_granted('ROLE_ADMIN') %}
+                        <th scope="col"> # </th>
+                        <th scope="col">Login</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Zablokuj</th>
                         <th scope="col">Usuń</th>
-                        {% endif %}
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -25,14 +25,17 @@
                     <tr>
                     <th scope="row"></th>
                         <td>
-                            {{ pagination.content }}
+                            {{ pagination.name }}
                         </td>
-
-                        {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            {{ pagination.email }}
+                        </td>
                         <td> 
-                            <a onclick="return confirm('Czy na pewno usunąć post?')" href ="{{ path('post_delete',{'id':pagination.id})}}"><span class="close">X</span></a>
+                            TODO
                         </td>
-                        {% endif %}
+                        <td> 
+                            <a onclick="return confirm('Czy na pewno usunąć uzytkownika?')" href ="{{ path('admin_user_delete',{'id':pagination.id})}}"><span class="close">X</span></a>
+                        </td>
                         
                     </tr>
                     {% endfor %}
