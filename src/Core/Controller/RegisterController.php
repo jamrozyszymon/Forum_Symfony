@@ -19,8 +19,9 @@ class RegisterController extends AbstractController
         if($request->isMethod('Post')) {
             try {
                 $registerUser->registerFromRequest($request);
+                $this->addFlash('success', 'Udana rejestracja. Teraz możesz zalogować się na swoje konto.');
                 return $this->render('User/registration.html.twig');
-                $this->addFlash('success', 'Udana rejestracja');
+
             } catch (Exception $e) {
                 $this->addFlash('danger', $e->getMessage());
             }

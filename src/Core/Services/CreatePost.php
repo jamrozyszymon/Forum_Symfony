@@ -20,12 +20,13 @@ class CreatePost
         $this->validPostData = new ValidPostData;
     }
 
-    public function create(string $content, $user): Post
+    public function create(string $content, $user, $category): Post
     {
         $this->validPostData->valid($content);
         $post = new Post();
         $post->setContent($content);
         $post->setUsers($user);
+        $post->setCategories($category);
         $this->entityManagerInterface->persist($post);
         $this->entityManagerInterface->flush();
         return $post;

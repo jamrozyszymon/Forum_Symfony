@@ -42,6 +42,7 @@ class AdminController extends AbstractController
             $category->setname($request->get('category')['name']);
             $entityManager->persist($category);
             $entityManager->flush();
+            return $this->redirectToRoute('ADMIN DASHBOARD');
         }
 
         return $this->render('Category/create.html.twig', [
@@ -80,7 +81,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/users/delete{id}", name="admin_user_delete")
+     * @Route("/users/delete/{id}", name="admin_user_delete")
      */
     public function deleteUser(ManagerRegistry $doctrine, User $id)
     {

@@ -6,7 +6,14 @@
                 <div>
                     {% include 'displayerror.html.twig' %}
                 </div>
-            <form class="px-4 py-3" method="post">
+
+                {% for messages in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ messages}}
+                    </div>
+                {% endfor %}
+
+            <form class="px-4 py-3" method="post" name="register">
                 <div class = "form-group">
                     <label for="name">Login:</label>
                     <input type="text" name="name" class="form-control"/>

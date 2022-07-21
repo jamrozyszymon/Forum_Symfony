@@ -3,12 +3,21 @@
     <div class="container">
         <div class= "row">
             <div class = "col-6">
+            <h2> Dodaj post </h2>
                 <div>
                     {% include 'displayerror.html.twig' %}
                 </div>
-            <form method="post">
+            <form method="post" name="add_post">
                 <label for="exampleFormControlTextarea1" class="form-label">Treść postu</label>
                 <textarea class="form-control" name="content" rows="3"></textarea>
+
+                <select class="form-select" aria-label="Default select example" name="category-selected">
+                    <option selected>Wybierz kategorię</option>
+                    {% for category in categories  %}
+                        <option value="{{category.id}}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+
                 <button type="submit" class="btn btn-secondary">Dodaj</button>
             </form>
             </div>

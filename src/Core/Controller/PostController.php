@@ -9,9 +9,9 @@ use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\Post;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\Category;
+use App\Entity\Post;
 
 
 class PostController extends AbstractController
@@ -19,6 +19,30 @@ class PostController extends AbstractController
     /**
      *  @Route("/Post/create", name="post_create")
      */
+    public function create(ManagerRegistry $doctrine, CreatePost $createPost, Request $request)
+    {
+        $categories = $doctrine->getRepository(Category::class)->findAll();
+
+        $user = new User();
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user=$this->getUser();
+
+        $category = new Category();
+
+        if($request->isMethod('POST')) {
+            try{
+                $createPost->create($request->get('content'), $user, $category);
+                $this->addFlash('success', "Post został dodany");
+            } catch (Exception $ex) {
+                $this->addFlash('danger', $ex->getMessage());
+            }
+        }
+        return $this->render('Post/create.html.twig',[
+            'categories' => $categories,
+        ]);
+    }
+
+    /*
     public function create(CreatePost $createPost, Request $request)
     {
         $user = new User();
@@ -26,14 +50,16 @@ class PostController extends AbstractController
         $user=$this->getUser();
         if($request->isMethod('POST')) {
             try{
-                $createPost->create($request->get('content'), $user);
+                $createPost->create($request->get('content'), $user, $request->get('category_id'));
                 $this->addFlash('success', "Post został dodany");
             } catch (Exception $ex) {
                 $this->addFlash('danger', $ex->getMessage());
             }
         }
         return $this->render('Post/create.html.twig');
+
     }
+    */
 
     /**
      * @Route("/Post/display/category/{categoryname},{id}", name="post_display")
@@ -68,12 +94,4 @@ class PostController extends AbstractController
         return $this->redirectToRoute('post_display');
     }
 
-    public function categories(ManagerRegistry $doctrine)
-    {
-        $categories = $doctrine->getRepository(Category::class)->findAll();
-
-        return $this->render('Category/category_tree.html.twig', [
-            'categories' => $categories
-        ]);
-    }
 }

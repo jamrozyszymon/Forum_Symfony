@@ -1,42 +1,77 @@
 <?php
 
 namespace App\Tests\Controller;
+use App\Repository\UserRepository;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use App\Repository\UserRepository;
 
 class LogInControllerTest extends WebTestCase
 {
-    
-    public function testIndex()
+    public function testRedirectToLoginPage()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/user/login');
+        $client->request('GET', '/user/login');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h2', 'Zaloguj się');
+    }
 
-        $link = $crawler
-        ->filter('a:contains("Zarejestruj się")')
-        ->link();
+    public function testVisitingWhileLoggedIn()
+    {
+        $client = static::createClient();
 
-        $crawler = $client->click($link);
-        $this->assertStringContainsString('Rejestracja', $client->getResponse()->getContent());
-        
+        $userRepository = static::getContainer()->get(UserRepository::class);
 
-        //$form = $crawler
-        //->filter('button:contains("Zaloguj")')
-        //->link();
-        /*
-        $form = $crawler->selectButton('Zaloguj')->form();
+        // retrieve the test user
+        $testUser = $userRepository->findOneByEmail('user2@user.com');
+
+        // simulate $testUser being logged in
+        $client->loginUser($testUser);
+
+        $client->request('GET', '/user/dashboard');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h2', 'Panel Użytkownika');
+    }
+
+    /**
+     * @dataProvider getSecureUrl
+     */
+    public function testRedirectForNonAuthorizatedUser($url)
+    {
+        $client = static::createClient();
+        $client->request('GET', $url);
+        $client->followRedirect();
+        $this->assertTrue(true, $client->getResponse()->isRedirect('/user/login/'));
+
+    }
+
+    public function getSecureUrl()
+    {
+        yield ['/user/dashboard'];
+    }
 
 
-        $form['username']="t@tt.com";
-        $form['password']="123123123";
-        $crawler = $client->submit($form);
-        $crawler = $client->followRedirect();
-        //$this->assertEquals($crawler->filter('a:contains("Wyloguj")')->count()>0);
-        $this->assertStringContainsString('Forum', $client->getResponse()->getContent());
-        */
-    } 
+    //test security of admin page
+    /**
+     * @dataProvider getSecureAdminUrl
+     */
+    public function testRedirectFromAdminUrlForNonAuthenticatedUser($url)
+    {
+        $client = static::createClient();
+        $client->request('GET', $url);
+        $client->followRedirect();
+        $this->assertTrue(true, $client->getResponse()->isRedirect('/user/login/'));
+
+    }
+
+    public function getSecureAdminUrl()
+    {
+        yield ['/admin'];
+        yield ['/admin/category/create'];
+        yield ['/admin/category/delete/1'];
+        yield ['/admin/users'];
+        yield ['/admin/users/delete/2'];
+    }
+    //end test security of admin page
 }
+

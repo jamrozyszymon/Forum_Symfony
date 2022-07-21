@@ -2,10 +2,12 @@
 
 namespace App\Core\Controller;
 
+use App\Core\Services\DisplayCategory;
 use App\Core\Services\GetCategories;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Category;
+use App\Repository\PostRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,11 +18,11 @@ class CategoryController extends AbstractController
     {
         $categories = $doctrine->getRepository(Category::class)->findAll();
 
+        
         return $this->render('Category/category_tree.html.twig', [
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
-
 
     /**
      * @Route("/Category/display", name="category_display")
@@ -30,6 +32,7 @@ class CategoryController extends AbstractController
         $categories = $doctrine->getRepository(Category::class)->findAll();
 
         $paginate = $paginator->paginate(
+            //$this->categories,
             $categories,
             $request->query->getInt('page', 1), 5
         );
