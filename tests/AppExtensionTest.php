@@ -24,6 +24,8 @@ class AppExtensionTest extends TestCase
             ['Test Text+', 'test-text'],
             ['Test Text!', 'test-text'],
             ['Test T/ext', 'test-text'],
+            ['Test-Text', 'test-text'],
+            ['Test \'Text', 'test-text'],
         ];
     }
 }

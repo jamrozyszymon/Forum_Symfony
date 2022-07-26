@@ -66,7 +66,7 @@ class PostController extends AbstractController
      */
     public function showPost(ManagerRegistry $doctrine,  PaginatorInterface $paginator, Request $request, Category $id)
     {
-        $posts = $doctrine->getRepository(Post::class)->findBy(['id' => $id]);
+        $posts = $doctrine->getRepository(Post::class)->findBy(['categories' => $id]);
         
         $paginate = $paginator->paginate(
             $posts,
